@@ -7,13 +7,13 @@ The idea of the 'LSTM feature extraction and machine learning classification' me
 
 ### File Description
 
-##### data
+#### data
 
 * File name: 'RB00_5M_sample.csv'
 
 * File description: This is a small sample of data for the rebar futures contract, with a time period of 30th Dec 2018 to 28th Jun 2022.
  
-##### src -- feature
+#### src -- feature
 
 * The paper mentions that we use three feature groups, and the following file paths represent each of the three different feature groups:
 
@@ -25,13 +25,13 @@ The idea of the 'LSTM feature extraction and machine learning classification' me
 
 * We use the LSTM feature extraction method with the file path: \src\feature\ **lstm**
 
-##### src -- models
+#### src -- models
 
 * We have used a machine learning model for the classification task, in the file：\src\models\ **classification.py**
 
 * Since we plan to explore the regression model in the future, but it is not currently mentioned in this paper, this \src\models\regression.py can be ignored
 
-##### src -- pipline
+#### src -- pipline
 
 * Create category labels: \src\pipeline\ **label.py**
 
@@ -39,7 +39,7 @@ The idea of the 'LSTM feature extraction and machine learning classification' me
 
 * Preprocessing of features: \src\pipeline\ **preprocessing.py**
 
-##### src
+#### src
 
 * **main.py**: run the entire project and define the window length for the sliding window segmentation dataset
 
@@ -47,7 +47,7 @@ The idea of the 'LSTM feature extraction and machine learning classification' me
 
 * **utils.py**: collation of forecast results and forecast evaluation results
 
-##### config
+#### config
 
 * **config.yaml**: configuration file with the possibility to make changes to the adjustable parameters
 
