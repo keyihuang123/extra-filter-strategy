@@ -1,0 +1,1215 @@
+##### 合约 配置 #####
+contract:
+  support:  ['RB00_5M','I00_5M']   # 合约代码，支持：I00_5M, RB00_5M
+  selection:
+    code: CL00_5M
+    start_dt: 2019-12-01 00:00:00   # 开始时间段
+    end_dt: 2021-03-01 00:00:00     # 结束时间段
+    k_type: 5m             # 默认只有 5分钟 k 线，其它： 1m  5m  15m 60m 1d
+
+  selection_add: ['I00_5M']     # 添加辅助数据，参数配置默认与主数据相同
+
+
+##### 标签 配置 #####
+label:
+  support:  # 支持的标签及默认的参数配置
+    stop_surplus:
+      name:  止盈标签
+      content:  根据先涨还是先跌1%进行1、0分类
+      parameter:
+        delta:  0.01
+    stop_surplus_limit:
+      name:  止盈标签（指定K线数）
+      content:  在后续的n条k线中，根据先涨还是先跌1%进行1、0、-1分类
+      parameter:
+        delta:  0.01
+        n:  12
+
+  selection:   # 选择的标签
+    name: stop_surplus
+    parameter:
+      delta: 0.01
+
+
+##### 数据预处理 配置 #####
+normalize:
+  available:  true     # 是否标准化归一化，true,false
+  support: [zscore,maxmin]
+  selection:  zscore
+
+
+##### 特征工程 配置 #####
+extraction:
+  support:  # 支持构造的特征
+    ta_tq:
+      name:  ta
+      content: 天勤平台实现的ta技术指标，
+      parameter:
+        ATR:
+          n: 14
+          name: "平均真是波幅"
+        BIAS:
+          n: 6
+          name: "乖离率"
+        BOLL:
+          n: 13
+          p: 2
+          name: "布林带"
+        DMI:
+          n: 14
+          m: 6
+          name: "动向指标"
+        KDJ:
+          n: 9
+          m1: 3
+          m2: 3
+          name: "随机指标KDJ"
+        MACD:
+          short: 12
+          long: 26
+          m: 9
+          name: "异同移动平均线"
+        SAR:
+          n: 4
+          step: 0.02
+          max: 0.2
+          name: "抛物线指标"
+        WR:
+          n: 14
+          name: "威廉指标"
+        RSI:
+          n: 7
+          name: "相对强弱指标"
+        ASI:
+          name: "振动升降指标"
+        VR:
+          n: 26
+          name: "容量比率"
+        ARBR:
+          n: 26
+          name: "人气意愿指标"
+        DMA:
+          short: 10
+          long: 50
+          m: 10
+          name: "平均残差"
+        EXPMA:
+          p1: 5
+          p2: 10
+          name: "指数加权移动平均线组合"
+        CR:
+          n: 26
+          m: 5
+          name: "CR能量"
+        CCI:
+          n: 14
+          name: "顺势指标"
+        OBV:
+          name: "能量潮"
+        CDP:
+          n: 3
+          name: "逆势操作"
+        HCL:
+          n: 10
+          name: "均线通道"
+        ENV:
+          n: 14
+          k: 6
+          name: "包略线"
+        MIKE:
+          n: 12
+          name: "麦克指标"
+        PUBU:
+          m: 4
+          name: "瀑布线"
+        BBI:
+          n1: 3
+          n2: 6
+          n3: 12
+          n4: 24
+          name: "多空指数"
+        DKX:
+          m: 10
+          name: "多空线"
+        BBIBOLL:
+          n: 10
+          m: 3
+          name: "多空布林线"
+        ADTM:
+          n: 23
+          m: 8
+          name: "动态买卖气指标"
+        B3612:
+          name: "三减六日乖离率"
+        DBCD:
+          n: 5
+          m: 16
+          t: 76
+          name: "异同离差乖离率"
+        DDI:
+          n: 13
+          n1: 30
+          m: 10
+          m1: 5
+          name: "方向标准离差指数"
+        KD:
+          n: 9
+          m1: 3
+          m2: 3
+          name: "随机指标KD"
+        LWR:
+          n: 9
+          m: 3
+          name: "威廉指标"
+        MASS:
+          n1: 9
+          n2: 25
+          name: "梅斯线"
+        MFI:
+          n: 14
+          name: "资金流量指标"
+        MI:
+          n: 12
+          name: "动量指标"
+        MICD:
+          n: 3
+          n1: 10
+          n2: 20
+          name: "异同离差动力指数"
+        MTM:
+          n: 6
+          n1: 6
+          name: "MTM动力指标"
+        PRICEOSC:
+          long: 26
+          short: 12
+          name: "价格震荡指数"
+        PSY:
+          n: 12
+          m: 6
+          name: "心理线"
+        QHLSR:
+          name: "阻力指标"
+        RC:
+          n: 50
+          name: "变化率指数"
+        RCCD:
+          n: 10
+          n1: 21
+          n2: 28
+          name: "异同离差变化率指数"
+        ROC:
+          n: 24
+          m: 20
+          name: "变动速率"
+        SLOWKD:
+          n: 9
+          m1: 3
+          m2: 3
+          m3: 3
+          name: "慢速KD"
+        SRDM:
+          n: 30
+          name: "动向速度比率"
+        SRMI:
+          n: 30
+          name: "MI修正指标"
+        ZDZB:
+          n1: 50
+          n2: 5
+          n3: 20
+          name: "筑底指标"
+        DPO:
+          name: "区间震荡线"
+        LON:
+          name: "长线指标"
+        SHORT:
+          name: "短线指"
+        MV:
+          n: 10
+          m: 20
+          name: "均量线"
+        WAD:
+          n: 10
+          m: 30
+          name: "威廉多空力度线"
+        PVT:
+          name: "价量趋势指"
+        VOSC:
+          short: 12
+          long: 26
+          name: "移动平均成交量指标"
+        VROC:
+          n: 12
+          name: "量变动速率"
+        VRSI:
+          n: 6
+          name: "量相对强弱"
+        WVAD:
+          name: "威廉变异离散量"
+        MA:
+          n: 30
+          name: "简单移动平均线"
+        SMA:
+          n: 5
+          m: 2
+          name: "扩展指数加权移动平均"
+        EMA:
+          n: 10
+          name: "指数加权移动平均线"
+        EMA2:
+          n: 10
+          name: "线性加权移动平均"
+        TRMA:
+          n: 10
+          name: "三角移动平均线"
+
+    ta_lib:
+      name:  ta_lib
+      content:  开源库TA-lib 实现的ta指标
+      parameter:
+        BBANDS:
+          name:  布林带
+          content:  Bollinger Bands  返回 上轨， 中轨， 下轨
+          columns:  [close]
+          parameter:
+            timeperiod: 5
+            nbdevup: 2
+            nbdevdn: 2
+            matype: 0  #(Simple Moving Average)
+
+        DEMA:
+          name:  无
+          content:  Double Exponential Moving Average
+          columns:  [close]
+          parameter:
+            timeperiod: 30
+
+        EMA:
+          name:  无
+          content:  Exponential Moving Average
+          columns:  [close]
+          parameter:
+            timeperiod: 30
+
+        HT_TRENDLINE:
+          name:  无
+          content:  Hilbert Transform - Instantaneous Trendline
+          columns: [ close ]
+          parameter:
+
+        KAMA:
+          name:  无
+          content:  Kaufman Adaptive Moving Average
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+
+        MA:
+          name: 均线
+          content: Moving average
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+            matype: 0        #(Simple Moving Average)
+
+        MAMA:
+          name: 均线
+          content: MESA Adaptive Moving Average
+          columns: [ close ]
+          parameter:
+            fastlimit: 0.5
+            slowlimit: 0.05
+
+        #MAVP:
+        #  name: 无
+        #  content: Moving average with variable period
+        #  columns: [ close ]
+        #  parameter:
+        #    fastlimit: 0.5
+        #    slowlimit: 0.05
+
+        MIDPOINT:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 14
+
+        MIDPRICE:
+          name:
+          content:
+          columns: [ high,low ]
+          parameter:
+            timeperiod: 14
+
+        SAR:
+          name:
+          content:
+          columns: [ high,low ]
+          parameter:
+            acceleration: 0.02
+            maximum: 0.2
+
+        SAREXT:
+          name:
+          content:
+          columns: [ high,low ]
+          parameter:
+            startvalue: 0
+            offsetonreverse: 0
+            accelerationinitlong: 0.02
+            accelerationlong: 0.02
+            accelerationmaxlong: 0.2
+            accelerationinitshort: 0.02
+            accelerationshort: 0.02
+            accelerationmaxshort: 0.2
+
+
+        SMA:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+        T3:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 5
+            vfactor: 0.7
+        TEMA:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+
+        TRIMA:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+
+        WMA:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+        ### 动量指标  ###
+        ADX:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+
+        ADXR:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        APO:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            fastperiod: 12
+            slowperiod: 26
+            matype: 0       #(Simple Moving Average)
+
+        AROON:
+          name:
+          content:
+          columns: ['high', 'low']
+          parameter:
+            timeperiod: 14
+
+        AROONOSC:
+          name:
+          content:
+          columns: ['high', 'low']
+          parameter:
+            timeperiod: 14
+
+        BOP:
+          name:
+          content:
+          columns: ['open', 'high', 'low', 'close']
+          parameter:
+
+        CCI:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        CMO:
+          name:
+          content:
+          columns: [close ]
+          parameter:
+            timeperiod: 14
+        DX:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        MACD:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            fastperiod: 12
+            slowperiod: 26
+            signalperiod: 9
+
+        MACDEXT:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            fastperiod: 12
+            fastmatype: 0
+            slowperiod: 26
+            slowmatype: 0
+            signalperiod: 9
+            signalmatype: 0
+        MACDFIX:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            signalperiod: 9
+
+        MFI:
+          name:
+          content:
+          columns: ['high', 'low', 'close', 'volume']
+          parameter:
+            timeperiod: 14
+        MINUS_DI:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        MINUS_DM:
+          name:
+          content:
+          columns: ['high', 'low']
+          parameter:
+            timeperiod: 14
+        MOM:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 10
+        PLUS_DI:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+
+        PLUS_DM:
+          name:
+          content:
+          columns: ['high', 'low']
+          parameter:
+            timeperiod: 14
+        PPO:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            fastperiod: 12
+            slowperiod: 26
+            matype: 0
+
+        ROC:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 10
+        ROCP:
+          name:
+          content:
+          columns: [ close]
+          parameter:
+            timeperiod: 10
+        ROCR:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 10
+
+        ROCR100:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 10
+
+        RSI:
+          name:
+          content:
+          columns: [ close]
+          parameter:
+            timeperiod: 14
+        STOCH:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            fastk_period: 5
+            slowk_period: 3
+            slowk_matype: 0
+            slowd_period: 3
+            slowd_matype: 0
+
+        STOCHF:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            fastk_period: 5
+            fastd_period: 3
+            fastd_matype: 0
+
+        STOCHRSI:
+          name:
+          content:
+          columns: [ close]
+          parameter:
+            timeperiod: 14
+            fastk_period: 5
+            fastd_period: 3
+            fastd_matype: 0
+        TRIX:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+            timeperiod: 30
+        ULTOSC:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod1: 7
+            timeperiod2: 14
+            timeperiod3: 28
+
+        WILLR:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        AD:
+          name:
+          content:
+          columns: ['high', 'low', 'close', 'volume']
+          parameter:
+
+        ADOSC:
+          name:
+          content:
+          columns: ['high', 'low', 'close', 'volume']
+          parameter:
+            fastperiod: 3
+            slowperiod: 10
+
+        OBV:
+          name:
+          content:
+          columns: [ close,volume ]
+          parameter:
+        ### 周期指标  ###
+        HT_DCPERIOD:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+
+        HT_DCPHASE:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+
+        HT_PHASOR:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+
+        HT_SINE:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+        HT_TRENDMODE:
+          name:
+          content:
+          columns: [ close ]
+          parameter:
+        ### 价格转换  ###
+
+        AVGPRICE:
+          name:
+          content:
+          columns: ['open', 'high', 'low', 'close']
+          parameter:
+
+        MEDPRICE:
+          name:
+          content:
+          columns: ['high', 'low']
+          parameter:
+
+        TYPPRICE:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+        WCLPRICE:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+
+        ###  波动率  ####
+        ATR:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+        TRANGE:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+        NATR:
+          name:
+          content:
+          columns: ['high', 'low', 'close']
+          parameter:
+            timeperiod: 14
+
+        ### 模式识别  ###
+        CDL2CROWS:
+          name:
+          content: Two Crows
+          columns: ['open', 'high', 'low', 'close']
+          parameter:
+
+        CDL3BLACKCROWS:
+          name:  无
+          content: Three Black Crows
+          columns: ['open', 'high', 'low', 'close']
+          parameter:
+
+        CDL3INSIDE:
+          name:  无
+          content: Three Inside Up/Down
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+
+        CDL3LINESTRIKE:
+          name: 无
+          content: Three-Line Strike
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+
+        CDL3OUTSIDE:
+          name: 无
+          content: Three Outside Up/Down
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDL3STARSINSOUTH:
+          name: 无
+          content: Three Stars In The South
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDL3WHITESOLDIERS:
+          name: 无
+          content: Three Advancing White Soldiers
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLABANDONEDBABY:
+          name: 无
+          content: Abandoned Baby
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.3
+        CDLADVANCEBLOCK:
+          name: 无
+          content: Advance Block
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLBELTHOLD:
+          name: 无
+          content: Belt-hold
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLBREAKAWAY:
+          name: 无
+          content: Breakaway
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLCLOSINGMARUBOZU:
+          name: 无
+          content: Closing Marubozu
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLCONCEALBABYSWALL:
+          name: 无
+          content: Concealing Baby Swallow
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLCOUNTERATTACK:
+          name: 无
+          content: Counterattack
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLDARKCLOUDCOVER:
+          name: 无
+          content: Dark Cloud Cover
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.5
+        CDLDOJI:
+          name: 无
+          content: Doji
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLDOJISTAR:
+          name: 无
+          content: Doji Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLDRAGONFLYDOJI:
+          name: 无
+          content:  Dragonfly Doji
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLENGULFING:
+          name: 无
+          content: Engulfing Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLEVENINGDOJISTAR:
+          name: 无
+          content:  Evening Doji Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.3
+        CDLEVENINGSTAR:
+          name: 无
+          content:  Evening Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.3
+        CDLGAPSIDESIDEWHITE:
+          name: 无
+          content:  Up/Down-gap side-by-side white lines
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLGRAVESTONEDOJI:
+          name: 无
+          content:  Gravestone Doji
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHAMMER:
+          name: 无
+          content:  Hammer
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHANGINGMAN:
+          name: 无
+          content:  Hanging Man
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHARAMI:
+          name: 无
+          content:  Harami Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHARAMICROSS:
+          name: 无
+          content:  Harami Cross Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHIGHWAVE:
+          name: 无
+          content:  High-Wave Candle
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHIKKAKE:
+          name: 无
+          content:  Hikkake Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHIKKAKEMOD:
+          name: 无
+          content:  Modified Hikkake Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLHOMINGPIGEON:
+          name: 无
+          content:  Homing Pigeon
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLIDENTICAL3CROWS:
+          name: 无
+          content:  Identical Three Crows
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLINNECK:
+          name: 无
+          content:  In-Neck Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLINVERTEDHAMMER:
+          name: 无
+          content:  Inverted Hammer
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLKICKING:
+          name: 无
+          content:  Kicking
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLKICKINGBYLENGTH:
+          name: 无
+          content:  Kicking - bull/bear determined by the longer marubozu
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLLADDERBOTTOM:
+          name: 无
+          content:  Ladder Bottom
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLLONGLEGGEDDOJI:
+          name: 无
+          content:  Long Legged Doji
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLLONGLINE:
+          name: 无
+          content:  Long Line Candle
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLMARUBOZU:
+          name: 无
+          content:  Marubozu
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLMATCHINGLOW:
+          name: 无
+          content:  Matching Low
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLMATHOLD:
+          name: 无
+          content:  Mat Hold
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.5
+        CDLMORNINGDOJISTAR:
+          name: 无
+          content:  Morning Doji Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.3
+        CDLMORNINGSTAR:
+          name: 无
+          content:  Morning Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+            penetration: 0.3
+        CDLONNECK:
+          name: 无
+          content:  On-Neck Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLPIERCING:
+          name: 无
+          content:  Piercing Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLRICKSHAWMAN:
+          name: 无
+          content:  Rickshaw Man
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLRISEFALL3METHODS:
+          name: 无
+          content:  Rising/Falling Three Methods
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSEPARATINGLINES:
+          name: 无
+          content:  Separating Lines
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSHOOTINGSTAR:
+          name: 无
+          content:  Shooting Star
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSHORTLINE:
+          name: 无
+          content:  Short Line Candle
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSPINNINGTOP:
+          name: 无
+          content:  Spinning Top
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSTALLEDPATTERN:
+          name: 无
+          content:  Stalled Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLSTICKSANDWICH:
+          name: 无
+          content:  Stick Sandwich
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLTAKURI:
+          name: 无
+          content:  Takuri (Dragonfly Doji with very long lower shadow)
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLTASUKIGAP:
+          name: 无
+          content:  Tasuki Gap
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLTHRUSTING:
+          name: 无
+          content:  Thrusting Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLTRISTAR:
+          name: 无
+          content:  Tristar Pattern
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLUNIQUE3RIVER:
+          name: 无
+          content:  Unique 3 River
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLUPSIDEGAP2CROWS:
+          name: 无
+          content:  Upside Gap Two Crows
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+        CDLXSIDEGAP3METHODS:
+          name: 无
+          content:  Upside/Downside Gap Three Methods
+          columns: [ 'open', 'high', 'low', 'close' ]
+          parameter:
+
+        ### 统计功能  ###
+        LINEARREG:
+          name: 无
+          content:  Linear Regression
+          columns: [ close]
+          parameter:
+            timeperiod: 14
+        LINEARREG_ANGLE:
+          name: 无
+          content:  Linear Regression Angle
+          columns: [ close ]
+          parameter:
+            timeperiod: 14
+        LINEARREG_INTERCEPT:
+          name: 无
+          content:  Linear Regression Intercept
+          columns: [ close ]
+          parameter:
+            timeperiod: 14
+
+        LINEARREG_SLOPE:
+          name: 无
+          content:  Linear Regression Slope
+          columns: [ close ]
+          parameter:
+            timeperiod: 14
+        TSF:
+          name:
+          content:  Time Series Forecast
+          columns:  [close]
+          parameter:
+            timeperiod: 14
+
+
+
+    kats:
+      name: kats
+      content: 时间序列特征，
+      parameter:
+        column: close
+        freq:  100
+        selected_features:
+                [  ## statistics 基础统计特征
+                  mean,var,entropy,lumpiness,stability,flat_spots,hurst,std1st_der,crossing_points,binarize_mean,
+                  unitroot_kpss,heterogeneity,histogram_mode,linearity,
+                  ## stl_features
+                  trend_strength, seasonality_strength, spikiness, peak, trough,
+                  ## level_shift_features
+                  level_shift_idx, level_shift_size,
+                  ## acfpacf_features
+                  y_acf1, y_acf5, diff1y_acf1, diff1y_acf5, diff2y_acf1, diff2y_acf5, y_pacf5, diff1y_pacf5,
+                  diff2y_pacf5, seas_acf1, seas_pacf1,
+                  ## special_ac
+                  firstmin_ac, firstzero_ac,
+                  ## holt_params
+                  holt_alpha, holt_beta,
+                  ## bocp_detector
+                  bocp_num, bocp_conf_max, bocp_conf_mean,
+
+                  ## time 日期特征    ，此部分 计算快
+                  time_freq_Monday,
+                  time_freq_Tuesday,
+                  time_freq_Wednesday,
+                  time_freq_Thursday,
+                  time_freq_Friday,
+                  time_freq_Saturday,
+                  time_freq_Sunday,
+                ]
+
+    lstm:
+      name: lstm_16
+      content:  用LSTM网络搭建的模型进行特征提取，
+      parameter:
+        epochs: 100
+        batch_size: 32
+
+    hgnn:
+      name:  hgnn
+      content:  无
+      parameter:
+        K_neigs: 5
+        m_prob: 1
+        is_probH: true
+        max_epoch: 200
+        n_hid: 64
+        lr: 0.001
+        milestones: [ 100 ]
+        gamma: 0.9
+        drop_out: 0
+        print_freq: 100
+        weight_decay: 0.0005
+        decay_step: 200
+        decay_rate: 0.7
+        grid_sear: false
+        n_splits: 5
+        n_repeats: 5
+        regenerate_emb_model: false
+        xxx_rate: 5
+
+    transformer:
+      name:  transformer
+      content:  无，
+      parameter:
+        epochs:  50
+        batch_size:  32
+        seq_length:  20  # 滑动窗口大小
+
+
+    combination:
+      name: 组合
+      content:  对不同类别的特征进行拼接，可以从基础特征和之前的步骤生成的，
+      parameter:
+
+    selected:
+      name:  特征选择
+      content:  无
+      parameter:
+
+
+  operation:
+    step1:
+      method: ta_tq
+      from: [ step0_CL00_5M ]
+      parameter:
+
+    step2:
+      method:  kats
+      from:  [step0_CL00_5M]
+      parameter:
+
+
+    step3:
+      method:  combination
+      from:  [step0_CL00_5M,step1,step2]
+      parameter:
+
+    step4:
+      method:  lstm
+      from:  [step3]
+      parameter:
+
+    #step5:
+    #  method: transformer
+    #  from: [step1]
+    #  parameter:
+
+
+
+selection:
+  support:
+  available: false    # 暂不使用
+  method: ''    # 使用何种方法进行特征选择
+
+pca:
+  avaliable: false       #
+  n_components: 0.95
+
+##### 模型训练 配置 ####
+
+# 数据集划分的方式
+# rate 比例划分 0-1之间的浮点数，如0.8表示，前80%的数据作为训练集，后20%的数据作为测试集
+# rolling 滚动划分，给定一个日期如：2022-06-01，则该日期之前的数据作为训练集，之后的数据作为测试集
+data_split:
+  support:
+    rate:  0.8
+    rolling:  null
+  selection:
+    method:  rolling
+    parameter:  '2021-01-01 00:00:00'
+
+balance: false     # 是否进行样本平衡，仅分类任务是有效，true,false
+
+# 选择模型
+models_name:   [logistic, knn, nb, xgboost, lightgbm, catboost]
+
+
+hyperparameter:
+  available: false
+  search_library: scikit-learn
+
+
+
+metrics:
+- Accuracy
+- AUC
+- Recall
+- Prec.
+- F1
